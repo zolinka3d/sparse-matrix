@@ -1,7 +1,6 @@
 package MySparseMatrix;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 // "MySparseMatrix" represents a matrix over the field of real numbers.
 public class MySparseMatrix {
@@ -25,10 +24,8 @@ public class MySparseMatrix {
     //
 
     public void sparsify_ds2(ArrayList<ArrayList<Double>> matrix){
-        ArrayList<ArrayList<Double>> newMatrix = matrix.stream()
-                .map(row -> row.stream().filter(element -> element != 0.0).collect(Collectors.toCollection(ArrayList::new)))
-                .collect(Collectors.toCollection(ArrayList::new));
-        set_sparsified_matrix(newMatrix);
+        matrix.forEach(row -> row.removeIf(element -> element == 0.0));
+        set_sparsified_matrix(matrix);
     }
 
     public void sparsify_ds3(ArrayList<ArrayList<Number>> matrix){
