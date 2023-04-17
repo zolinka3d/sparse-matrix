@@ -25,8 +25,8 @@ public class Ds3 implements Gauss {
 
     public void printNewMatrix(){
         for (int i = 0; i < newMatrix.length; i++) {
-            for (int j = 0; j < newMatrix[i].size(); j++) {
-                System.out.println("column: " + i + " row: " +  j + " value:  " + newMatrix[i].get(j));
+            for (Object key : newMatrix[i].keySet()) {
+                System.out.println("column " + i + " row: " + key + " value: " + newMatrix[i].get(key));
             }
         }
     }

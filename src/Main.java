@@ -8,6 +8,7 @@ public class Main {
         Ds3 matrixDs3 = new Ds3(matrix);
         matrixDs2.printNewMatrix();
         matrixDs3.printNewMatrix();
+//        System.out.println(matrixDs2.getNewMatrix());
 
     }
 }

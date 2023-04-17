@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 
 public class Ds2 implements Gauss {
-    ArrayList<double[]>[] newMatrix;
+    private ArrayList<double[]>[] newMatrix;
+    public ArrayList<double[]>[] getNewMatrix() {
+        return newMatrix;
+
+    }
+
     public Ds2(double[][] normalMatrix) {
 
         this.newMatrix = changeNormalMatrixToListOfRows(normalMatrix);
