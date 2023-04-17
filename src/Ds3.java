@@ -8,7 +8,7 @@ public class Ds3 implements Gauss {
         this.newMatrix = changeNormalMatrixToListOfColumns(normalMatrix);
     }
 
-    private static HashMap<Integer, Double>[] changeNormalMatrixToListOfColumns(double[][] normalMatrix) {
+    private HashMap<Integer, Double>[] changeNormalMatrixToListOfColumns(double[][] normalMatrix) {
         HashMap<Integer, Double>[] matrixArrayOfHashmaps = new HashMap[normalMatrix.length];
 
         for (int row = 0; row < matrixArrayOfHashmaps.length; row++) {
@@ -30,12 +30,10 @@ public class Ds3 implements Gauss {
             }
         }
     }
-    @Override
+
     public void a1() {
 
     }
-
-    @Override
     public void a2() {
 
     }

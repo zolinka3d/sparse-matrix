@@ -12,7 +12,7 @@ public class Ds2 implements Gauss {
         this.newMatrix = changeNormalMatrixToListOfRows(normalMatrix);
     }
 
-    private static ArrayList<double[]>[] changeNormalMatrixToListOfRows(double[][] normalMatrix) {
+    private ArrayList<double[]>[] changeNormalMatrixToListOfRows(double[][] normalMatrix) {
         ArrayList<double[]>[] arrayLists = new ArrayList[normalMatrix.length];
 
         for (int i = 0; i < arrayLists.length; i++) {
@@ -34,12 +34,9 @@ public class Ds2 implements Gauss {
             }
         }
     }
-    @Override
     public void a1() {
 
     }
-
-    @Override
     public void a2() {
 
     }
