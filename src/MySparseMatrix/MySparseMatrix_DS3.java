@@ -32,10 +32,5 @@ public class MySparseMatrix_DS3 {
             }
         }
     }
-    public void a1() {
 
-    }
-    public void a2() {
-
-    }
 }
