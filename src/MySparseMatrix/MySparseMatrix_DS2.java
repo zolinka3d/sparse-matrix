@@ -1,13 +1,15 @@
+package MySparseMatrix;
+
 import java.util.ArrayList;
 
-public class Ds2 implements Gauss {
+public class MySparseMatrix_DS2 {
     private ArrayList<double[]>[] newMatrix;
     public ArrayList<double[]>[] getNewMatrix() {
         return newMatrix;
 
     }
 
-    public Ds2(double[][] normalMatrix) {
+    public MySparseMatrix_DS2(double[][] normalMatrix) {
 
         this.newMatrix = changeNormalMatrixToListOfRows(normalMatrix);
     }

@@ -1,10 +1,12 @@
+package MySparseMatrix;
+
 import java.util.HashMap;
 
-public class Ds3 implements Gauss {
+public class MySparseMatrix_DS3 {
 
     HashMap<Integer, Double>[] newMatrix;
 
-    public Ds3(double[][] normalMatrix) {
+    public MySparseMatrix_DS3(double[][] normalMatrix) {
         this.newMatrix = changeNormalMatrixToListOfColumns(normalMatrix);
     }
 
@@ -30,7 +32,6 @@ public class Ds3 implements Gauss {
             }
         }
     }
-
     public void a1() {
 
     }
