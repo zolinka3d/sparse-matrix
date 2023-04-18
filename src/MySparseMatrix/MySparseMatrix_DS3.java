@@ -53,12 +53,16 @@ public class MySparseMatrix_DS3 {
         }
 
         // Back substitution
-        for (int i = N - 1; i >= 0; i--) {
+        return backSubsitution(B, N, x, A);
+    }
+
+    private double[] backSubsitution(double[] B, int n, double[] x, HashMap<Integer, Double>[] a) {
+        for (int i = n - 1; i >= 0; i--) {
             double sum = 0;
-            for (int j = i + 1; j < N; j++) {
-                sum += getValue(A, i, j) * x[j];
+            for (int j = i + 1; j < n; j++) {
+                sum += getValue(a, i, j) * x[j];
             }
-            x[i] = (B[i] - sum) / getValue(A, i, i);
+            x[i] = (B[i] - sum) / getValue(a, i, i);
         }
 
         return x;
@@ -105,14 +109,7 @@ public class MySparseMatrix_DS3 {
             }
         }
         // back substitution // Wyznaczenie rozwiązania przez podstawienie wsteczne
-        for (int i = N - 1; i >= 0; i--) {
-            double sum = 0;
-            for (int columnIndex = i + 1; columnIndex < N; columnIndex++) {
-                sum += getValue(A, i, columnIndex) * x[columnIndex];
-            }
-            x[i] = (B[i] - sum) / getValue(A, i, i);
-        }
-        return x;
+        return backSubsitution(B, N, x, A);
     }
 
     private double getValue(HashMap<Integer, Double>[] A, int row, int column) {
