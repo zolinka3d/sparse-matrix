@@ -52,7 +52,7 @@ public class GaussElimination
         /** Print solution **/
         printSolution(solution);
     }
-    /** function to print in row    echleon form **/
+    /** function to print in row    echelon form **/
     public void printRowEchelonForm(double[][] A, double[] B)
     {
         int N = B.length;
