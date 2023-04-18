@@ -10,21 +10,6 @@ public class MySparseMatrix_DS2 {
         this.newMatrix = changeNormalMatrixToListOfRows(normalMatrix);
     }
 
-    private ArrayList<double[]>[] changeNormalMatrixToListOfRows(double[][] normalMatrix) {
-        ArrayList<double[]>[] arrayLists = new ArrayList[normalMatrix.length];
-
-        for (int i = 0; i < arrayLists.length; i++) {
-            arrayLists[i] = new ArrayList<>();
-            for (int j = 0; j < normalMatrix[0].length; j ++) {
-                if (normalMatrix[i][j] != 0) {
-                    double[] element = {j, normalMatrix[i][j]};
-                    arrayLists[i].add(element);
-                }
-            }
-        }
-        return arrayLists;
-    }
-
     public void printNewMatrix(){
         for (int i = 0; i < newMatrix.length; i++) {
             for (int j = 0; j < newMatrix[i].size(); j++) {
@@ -34,15 +19,15 @@ public class MySparseMatrix_DS2 {
     }
 
     public double[] solveWithPivotA2(double[] B) {
-        int N = B.length;
-        double[] x = new double[N];
+        int BLength = B.length;
+        double[] x = new double[BLength];
 
         ArrayList<double[]>[] A = newMatrix;
-        for (int k = 0; k < N; k++) {
+        for (int k = 0; k < BLength; k++) {
             // find pivot row, maximum in current column //
             double maxElement = 0;
             int maxRow = -1;
-            for (int n = k; n < N; n++) {
+            for (int n = k; n < BLength; n++) {
                 double value = getValue(A[n], k);
                 if (Math.abs(value) > Math.abs(maxElement)) {
                     maxElement = value;
@@ -66,42 +51,50 @@ public class MySparseMatrix_DS2 {
                 B[k] = tmpB;
             }
             // pivot within A and B // elimination column below diagonal
-            for (int i = k + 1; i < N; i++) {
-                double factor = getValue(A[i], k) / maxElement;
-                for (double[] entry : A[k]) {
-                    int columnIndex = (int) entry[0];
-                    double value = entry[1] * factor;
-                    addToRow(A[i], columnIndex, -value);
-                }
-                B[i] -= B[k] * factor;
-            }
+            eliminationColumnBelowDiagonal(B, BLength, A, k, maxElement);
         }
         // back substitution // Wyznaczenie rozwiązania przez podstawienie wsteczne
-        for (int i = N -1; i >=0; i-- ) {
+        return backSubstitution(B, BLength, x, A);
+    }
+
+    private double[] backSubstitution(double[] B, int BLength, double[] x, ArrayList<double[]>[] a) {
+        for (int i = BLength -1; i >=0; i-- ) {
             double sum = 0;
-            for (double[] entry : A[i]) {
+            for (double[] entry : a[i]) {
                 int columnIndex = (int) entry[0];
                 if( columnIndex > i ) {
                     sum += entry[1] * x[columnIndex];
                 }
             }
-            x[i] = (B[i] - sum) / getValue(A[i], i);
+            x[i] = (B[i] - sum) / getValue(a[i], i);
         }
         return x;
-
     }
+
+    private void eliminationColumnBelowDiagonal(double[] B, int BLength, ArrayList<double[]>[] a, int k, double maxElement) {
+        for (int i = k + 1; i < BLength; i++) {
+            double factor = getValue(a[i], k) / maxElement;
+            for (double[] entry : a[k]) {
+                int columnIndex = (int) entry[0];
+                double value = entry[1] * factor;
+                addToRow(a[i], columnIndex, -value);
+            }
+            B[i] -= B[k] * factor;
+        }
+    }
+
     public double[] solveWithoutPivotA1(double[] B) {
-        int N = B.length;
-        double[] x = new double[N];
+        int BLength = B.length;
+        double[] x = new double[BLength];
 
         ArrayList<double[]>[] A = newMatrix;
-        for (int k = 0; k < N; k++) {
+        for (int k = 0; k < BLength; k++) {
 
             double pivot = getValue(A[k], k);
             if (pivot == 0) {
                 // find a non-zero pivot in the same column
                 int newRow = -1;
-                for (int i = k + 1; i < N; i++) {
+                for (int i = k + 1; i < BLength; i++) {
                     if (getValue(A[i], k) != 0) {
                         newRow = i;
                         break;
@@ -125,32 +118,12 @@ public class MySparseMatrix_DS2 {
             }
 
             // pivot within A and B // elimination column below diagonal
-            for (int i = k + 1; i < N; i++) {
-                double factor = getValue(A[i], k) / pivot;
-                for (double[] entry : A[k]) {
-                    int columnIndex = (int) entry[0];
-                    double value = entry[1] * factor;
-                    addToRow(A[i], columnIndex, -value);
-                }
-                B[i] -= B[k] * factor;
-            }
+            eliminationColumnBelowDiagonal(B, BLength, A, k, pivot);
         }
 
         // back substitution // Wyznaczenie rozwiązania przez podstawienie wsteczne
-        for (int i = N - 1; i >= 0; i--) {
-            double sum = 0;
-            for (double[] entry : A[i]) {
-                int columnIndex = (int) entry[0];
-                if (columnIndex > i) {
-                    sum += entry[1] * x[columnIndex];
-                }
-            }
-            x[i] = (B[i] - sum) / getValue(A[i], i);
-        }
-        return x;
+        return backSubstitution(B, BLength, x, A);
     }
-
-
 
     private static double getValue(ArrayList<double[]> row, int columnIndex) {
         for (double[] entry : row) {
@@ -160,7 +133,6 @@ public class MySparseMatrix_DS2 {
         }
         return 0;
     }
-
     private static void addToRow(ArrayList<double[]> row, int columnIndex, double value) {
         if (value == 0) {
             return;
@@ -175,9 +147,20 @@ public class MySparseMatrix_DS2 {
                 return;
             }
         }
+        row.add(new double[]{columnIndex, value});
+    }
+    private ArrayList<double[]>[] changeNormalMatrixToListOfRows(double[][] normalMatrix) {
+        ArrayList<double[]>[] arrayLists = new ArrayList[normalMatrix.length];
 
-        if (value != 0) {
-            row.add(new double[]{columnIndex, value});
+        for (int i = 0; i < arrayLists.length; i++) {
+            arrayLists[i] = new ArrayList<>();
+            for (int j = 0; j < normalMatrix[0].length; j ++) {
+                if (normalMatrix[i][j] != 0) {
+                    double[] element = {j, normalMatrix[i][j]};
+                    arrayLists[i].add(element);
+                }
+            }
         }
+        return arrayLists;
     }
 }
