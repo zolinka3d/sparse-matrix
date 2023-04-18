@@ -13,7 +13,7 @@ public class MySparseMatrix_DS2 {
     public void printNewMatrix(){
         for (int i = 0; i < newMatrix.length; i++) {
             for (int j = 0; j < newMatrix[i].size(); j++) {
-                System.out.println("row: " + i + " col: " +  newMatrix[i].get(j)[0] + " val: " + newMatrix[i].get(j)[1] );
+                System.out.println("row: " + i + " col: " +  (int)newMatrix[i].get(j)[0] + " val: " + newMatrix[i].get(j)[1] );
             }
         }
     }

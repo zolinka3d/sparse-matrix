@@ -3,7 +3,7 @@ package FitnessTests;
 import java.util.HashMap;
 import java.util.Random;
 
-public class FitnessTestsGenerator {
+public class MatrixGenerator {
 
     public static double[][] DS2generateDenseMatrixA (int size) {
         double[][] matrixA = new double[size][size];
@@ -100,5 +100,15 @@ public class FitnessTestsGenerator {
             randomDouble = randomDouble - 1;
         }
         return randomDouble;
+    }
+
+    public static double[] multiplyMatrix(double[][] denseMatrixA, double[] denseMatrixX) {
+        double[] denseMatrixAX = new double[denseMatrixA.length];
+        for (int i = 0; i < denseMatrixA.length; i++) {
+            for (int j = 0; j < denseMatrixA.length; j++) {
+                denseMatrixAX[i] += denseMatrixA[i][j] * denseMatrixX[j];
+            }
+        }
+        return denseMatrixAX;
     }
 }

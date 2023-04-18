@@ -71,8 +71,8 @@ public class MySparseMatrix_DS3 {
     public double[] solveWithPivotA2(double[] B) {
         int N = B.length;
         double[] x = new double[N];
-
         HashMap<Integer, Double>[] A = newMatrix;
+
         for (int k = 0; k < N; k++) {
             // find pivot row, maximum in current column //
             double maxElement = 0;

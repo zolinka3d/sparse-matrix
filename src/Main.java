@@ -74,6 +74,7 @@ public class Main {
         for (double v : B2) {
             System.out.println("====> " + v);
         }
+
         double[] solvedDS2v2p = matrixDS2v2.solveWithPivotA2(B2);
         double[] solvedDS2v2 = matrixDS2v2.solveWithoutPivotA1(B2);
         double[] solvedDS3v2p = matrixDs3v2.solveWithPivotA2(B2);
