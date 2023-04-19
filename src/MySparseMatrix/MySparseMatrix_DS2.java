@@ -33,11 +33,12 @@ public class MySparseMatrix_DS2 {
         }
     }
 
-    public double[] solveWithPivotA2(double[] B) {
+    public double[] solveWithPivotA2(double[] BOriginal) {
+        double[] B = BOriginal.clone();
         int N = B.length;
         double[] x = new double[N];
 
-        ArrayList<double[]>[] A = newMatrix;
+        ArrayList<double[]>[] A = deepCopyMatrix(newMatrix);
         for (int k = 0; k < N; k++) {
             // find pivot row, maximum in current column //
             double maxElement = 0;
@@ -90,11 +91,13 @@ public class MySparseMatrix_DS2 {
         return x;
 
     }
-    public double[] solveWithoutPivotA1(double[] B) {
+    public double[] solveWithoutPivotA1(double[] BOriginal) {
+        double[] B = BOriginal.clone();
         int N = B.length;
         double[] x = new double[N];
 
-        ArrayList<double[]>[] A = newMatrix;
+        ArrayList<double[]>[] A = deepCopyMatrix(newMatrix);
+
         for (int k = 0; k < N; k++) {
 
             double pivot = getValue(A[k], k);
@@ -121,6 +124,7 @@ public class MySparseMatrix_DS2 {
                 B[newRow] = B[k];
                 B[k] = tmpB;
 
+                // Update the pivot variable after swapping
                 pivot = getValue(A[k], k);
             }
 
@@ -161,23 +165,34 @@ public class MySparseMatrix_DS2 {
         return 0;
     }
 
-    private static void addToRow(ArrayList<double[]> row, int columnIndex, double value) {
-        if (value == 0) {
-            return;
-        }
-
+    public void addToRow(ArrayList<double[]> row, int columnIndex, double value) {
+        boolean found = false;
         for (double[] entry : row) {
             if ((int) entry[0] == columnIndex) {
                 entry[1] += value;
+                found = true;
                 if (entry[1] == 0) {
                     row.remove(entry);
                 }
-                return;
+                break;
             }
         }
-
-        if (value != 0) {
+        // If the column index is not found and the value is not zero, add a new entry to the row
+        if (!found && value != 0) {
             row.add(new double[]{columnIndex, value});
         }
     }
+
+    private ArrayList<double[]>[] deepCopyMatrix(ArrayList<double[]>[] originalMatrix) {
+        ArrayList<double[]>[] copiedMatrix = new ArrayList[originalMatrix.length];
+        for (int i = 0; i < originalMatrix.length; i++) {
+            copiedMatrix[i] = new ArrayList<>();
+            for (double[] entry : originalMatrix[i]) {
+                copiedMatrix[i].add(new double[]{entry[0], entry[1]});
+            }
+        }
+        return copiedMatrix;
+    }
+
+
 }

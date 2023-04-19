@@ -35,13 +35,27 @@ public class MySparseMatrix_DS3 {
         }
     }
 
-    public double[] solveWithoutPivotA1(double[] B) {
+    public double[] solveWithoutPivotA1(double[] BOriginal) {
+        double[] B = BOriginal.clone();
         int N = B.length;
         double[] x = new double[N];
-        HashMap<Integer, Double>[] A = newMatrix;
+        HashMap<Integer, Double>[] A = deepCopyMatrix(newMatrix);
 
         // Forward elimination
         for (int k = 0; k < N - 1; k++) {
+            // Check if the pivot element is 0 and swap rows if necessary
+            if (getValue(A, k, k) == 0) {
+                for (int row = k + 1; row < N; row++) {
+                    if (getValue(A, row, k) != 0) {
+                        swapRowsInColumnHashMap(A, k, row);
+                        double tmpB = B[k];
+                        B[k] = B[row];
+                        B[row] = tmpB;
+                        break;
+                    }
+                }
+            }
+
             for (int i = k + 1; i < N; i++) {
                 double factor = getValue(A, i, k) / getValue(A, k, k);
                 for (int j = k; j < N; j++) {
@@ -64,11 +78,14 @@ public class MySparseMatrix_DS3 {
         return x;
     }
 
-    public double[] solveWithPivotA2(double[] B) {
+    public double[] solveWithPivotA2(double[] BOriginal) {
+        double[] B = BOriginal.clone();
         int N = B.length;
         double[] x = new double[N];
 
-        HashMap<Integer, Double>[] A = newMatrix;
+        HashMap<Integer, Double>[] A = deepCopyMatrix(newMatrix);
+
+
         for (int k = 0; k < N; k++) {
             // find pivot row, maximum in current column //
             double maxElement = 0;
@@ -151,6 +168,12 @@ public class MySparseMatrix_DS3 {
             }
         }
     }
-
+    private HashMap<Integer, Double>[] deepCopyMatrix(HashMap<Integer, Double>[] originalMatrix) {
+        HashMap<Integer, Double>[] copiedMatrix = new HashMap[originalMatrix.length];
+        for (int i = 0; i < originalMatrix.length; i++) {
+            copiedMatrix[i] = new HashMap<>(originalMatrix[i]);
+        }
+        return copiedMatrix;
+    }
 
 }
