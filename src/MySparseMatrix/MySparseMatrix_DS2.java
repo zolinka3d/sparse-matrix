@@ -18,11 +18,12 @@ public class MySparseMatrix_DS2 {
         }
     }
 
-    public double[] solveWithPivotA2(double[] B) {
+    public double[] solveWithPivotA2(double[] BOriginal) {
+        double[] B = BOriginal.clone();
         int BLength = B.length;
         double[] x = new double[BLength];
 
-        ArrayList<double[]>[] A = newMatrix;
+        ArrayList<double[]>[] A = newMatrix.clone();
         for (int k = 0; k < BLength; k++) {
             // find pivot row, maximum in current column //
             double maxElement = 0;
@@ -83,7 +84,8 @@ public class MySparseMatrix_DS2 {
         }
     }
 
-    public double[] solveWithoutPivotA1(double[] B) {
+    public double[] solveWithoutPivotA1(double[] BOriginal) {
+        double[] B = BOriginal.clone();
         int BLength = B.length;
         double[] x = new double[BLength];
 

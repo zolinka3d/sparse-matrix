@@ -111,4 +111,12 @@ public class MatrixGenerator {
         }
         return denseMatrixAX;
     }
+
+    public static String getAccuracy(double[] denseMatrixAX, double[] denseMatrixB) {
+        double accuracy = 0;
+        for (int i = 0; i < denseMatrixAX.length; i++) {
+            accuracy += Math.abs(denseMatrixAX[i] - denseMatrixB[i]);
+        }
+        return String.format("%.2f", accuracy);
+    }
 }

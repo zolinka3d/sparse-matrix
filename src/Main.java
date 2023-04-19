@@ -66,8 +66,8 @@ public class Main {
         matrixDS2v2.printNewMatrix();
 
         System.out.println("\n====> Matrix2 ds3 \n");
-        var matrixDs3v2 = new MySparseMatrix_DS3(matrix2);
-        matrixDs3v2.printNewMatrix();
+        var matrixDS3v2 = new MySparseMatrix_DS3(matrix2);
+        matrixDS3v2.printNewMatrix();
 
         System.out.println("\n====> Set up B matrix2(vector) \n");
         double[] B2 = {4,2,36};
@@ -77,8 +77,8 @@ public class Main {
 
         double[] solvedDS2v2p = matrixDS2v2.solveWithPivotA2(B2);
         double[] solvedDS2v2 = matrixDS2v2.solveWithoutPivotA1(B2);
-        double[] solvedDS3v2p = matrixDs3v2.solveWithPivotA2(B2);
-        double[] solvedDS3v2 = matrixDs3v2.solveWithoutPivotA1(B2);
+        double[] solvedDS3v2p = matrixDS3v2.solveWithPivotA2(B2);
+        double[] solvedDS3v2 = matrixDS3v2.solveWithoutPivotA1(B2);
 
         System.out.println("\n====> Solved DS2v2 without pivot \n");
         for (double v : solvedDS2v2) {

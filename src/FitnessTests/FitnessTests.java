@@ -30,8 +30,8 @@ public class FitnessTests {
             double[] bandMatrixAX = MatrixGenerator.multiplyMatrix(bandMatrixA, bandMatrixX);
             double[] sparseMatrixAX = MatrixGenerator.multiplyMatrix(sparseMatrixA, sparseMatrixX);
 
-//            System.out.println("Dense Matrix Accuracy: " + MatrixGenerator.getAccuracy(denseMatrixAX, denseMatrixB));
-//            System.out.println("Band Matrix Accuracy: " + MatrixGenerator.getAccuracy(bandMatrixAX, bandMatrixB));
-//            System.out.println("Sparse Matrix Accuracy: " + MatrixGenerator.getAccuracy(sparseMatrixAX, sparseMatrixB));
+            System.out.println("Dense Matrix Accuracy: " + MatrixGenerator.getAccuracy(denseMatrixAX, denseMatrixB));
+            System.out.println("Band Matrix Accuracy: " + MatrixGenerator.getAccuracy(bandMatrixAX, bandMatrixB));
+            System.out.println("Sparse Matrix Accuracy: " + MatrixGenerator.getAccuracy(sparseMatrixAX, sparseMatrixB));
         }
 }

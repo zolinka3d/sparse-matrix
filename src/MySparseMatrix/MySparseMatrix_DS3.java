@@ -35,7 +35,8 @@ public class MySparseMatrix_DS3 {
         }
     }
 
-    public double[] solveWithoutPivotA1(double[] B) {
+    public double[] solveWithoutPivotA1(double[] BOriginal) {
+        double[] B = BOriginal.clone();
         int N = B.length;
         double[] x = new double[N];
         HashMap<Integer, Double>[] A = newMatrix;
@@ -68,11 +69,11 @@ public class MySparseMatrix_DS3 {
         return x;
     }
 
-    public double[] solveWithPivotA2(double[] B) {
+    public double[] solveWithPivotA2(double[] BOriginal) {
+        double[] B = BOriginal.clone();
         int N = B.length;
         double[] x = new double[N];
-        HashMap<Integer, Double>[] A = newMatrix;
-
+        HashMap<Integer, Double>[] A = newMatrix.clone();
         for (int k = 0; k < N; k++) {
             // find pivot row, maximum in current column //
             double maxElement = 0;
@@ -88,7 +89,7 @@ public class MySparseMatrix_DS3 {
             if (maxRow == -1 || maxElement == 0) {
                 throw new RuntimeException("Macierz jest osobliwa");
             }
-            System.out.println("maxElement: " + maxElement + " for column " + k + " maxRow: " + maxRow);
+//            System.out.println("maxElement: " + maxElement + " for column " + k + " maxRow: " + maxRow);
 
             // swap row in A matrix
             if (maxRow != k) {
