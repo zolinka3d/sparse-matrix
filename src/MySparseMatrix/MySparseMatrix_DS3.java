@@ -136,7 +136,6 @@ public class MySparseMatrix_DS3 {
         return A[column].getOrDefault(row, 0.0);
     }
 
-
     private static void addToColumnHashMap(HashMap<Integer, Double> column, int rowIndex, double value) {
         if (value == 0) {
             return;
