@@ -92,7 +92,8 @@ public class MatrixGenerator {
     }
 
     private static double getRandomDouble() {
-        return ThreadLocalRandom.current().nextDouble(-2^16, 2^16-1);
+        var myRandom = ThreadLocalRandom.current().nextDouble(-2^16, 2^16-1);
+        return myRandom / (2^16);
     }
 
     public static double[] multiplyMatrix(double[][] MatrixA, double[] MatrixX) {
