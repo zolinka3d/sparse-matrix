@@ -2,6 +2,7 @@ package FitnessTests;
 
 import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MatrixGenerator {
 
@@ -91,15 +92,7 @@ public class MatrixGenerator {
     }
 
     private static double getRandomDouble() {
-        Random random = new Random();
-        double randomNumber = random.nextDouble();
-        double randomDouble = random.nextDouble() * 2e16;
-        if (randomNumber < 0.5) {
-            randomDouble = -randomDouble;
-        } else {
-            randomDouble = randomDouble - 1;
-        }
-        return randomDouble;
+        return ThreadLocalRandom.current().nextDouble(-2^16, 2^16-1);
     }
 
     public static double[] multiplyMatrix(double[][] MatrixA, double[] MatrixX) {
@@ -124,8 +117,8 @@ public class MatrixGenerator {
         }
         absoluteError = absoluteError / denseMatrixSolved.length;
         relativeError = relativeError / denseMatrixSolved.length;
-        return "Absolute Error: " + absoluteError +
-                "\nRelative Error: " + relativeError;
+        return "\tAbsolute Error: " + absoluteError +
+                "\n\tRelative Error: " + relativeError;
     }
 
 
