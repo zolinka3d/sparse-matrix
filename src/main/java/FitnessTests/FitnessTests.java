@@ -2,6 +2,7 @@ package FitnessTests;
 
 import MySparseMatrix.MySparseMatrix_DS2;
 import MySparseMatrix.MySparseMatrix_DS3;
+import org.apache.commons.math3.linear.*;
 
 public class FitnessTests {
     
@@ -19,7 +20,8 @@ public class FitnessTests {
             double[] sparseMatrixX = MatrixGenerator.generateMatrixX(size);
 
             // PRINT THOSE MATRICES
-            System.out.println("===== DENSE MATRIX =====");
+            {
+                System.out.println("===== DENSE MATRIX =====");
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     System.out.print(denseMatrixA[i][j] + " ");
@@ -40,70 +42,154 @@ public class FitnessTests {
                 }
                 System.out.println();
             }
-
+        }
 
             double[] denseMatrixB = MatrixGenerator.multiplyMatrix(denseMatrixA, denseMatrixX);
             double[] bandMatrixB = MatrixGenerator.multiplyMatrix(bandMatrixA, bandMatrixX);
             double[] sparseMatrixB = MatrixGenerator.multiplyMatrix(sparseMatrixA, sparseMatrixX);
 
-
-              System.out.println("\n\n===== DS2 =====");
+            System.out.println("\n\n===== DS2 =====");
             {
                 MySparseMatrix_DS2 denseMatrixSolver = new MySparseMatrix_DS2(denseMatrixA);
                 MySparseMatrix_DS2 bandMatrixSolver = new MySparseMatrix_DS2(bandMatrixA);
                 MySparseMatrix_DS2 sparseMatrixSolver = new MySparseMatrix_DS2(sparseMatrixA);
 
                 // WITHOUT PIVOTING
-                double[] denseMatrixSolved = denseMatrixSolver.solveWithoutPivotA1(denseMatrixB);
-                double[] bandMatrixSolved = bandMatrixSolver.solveWithoutPivotA1(bandMatrixB);
-                double[] sparseMatrixSolved = sparseMatrixSolver.solveWithoutPivotA1(sparseMatrixB);
+                long start1=System.currentTimeMillis();
+                    double[] denseMatrixSolved = denseMatrixSolver.solveWithoutPivotA1(denseMatrixB);
+                long finish1=System.currentTimeMillis();
+                long timeElapsed1 = finish1 - start1;
+
+                long start2 = System.currentTimeMillis();
+                    double[] bandMatrixSolved = bandMatrixSolver.solveWithoutPivotA1(bandMatrixB);
+                long finish2 = System.currentTimeMillis();
+                long timeElapsed2 = finish2 - start2;
+
+                long start3 = System.currentTimeMillis();
+                    double[] sparseMatrixSolved = sparseMatrixSolver.solveWithoutPivotA1(sparseMatrixB);
+                long finish3 = System.currentTimeMillis();
+                long timeElapsed3 = finish3 - start3;
 
                 System.out.println("\n===== WITHOUT PIVOTING TESTS ===== \n");
-                System.out.println("Dense Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(denseMatrixSolved, denseMatrixX));
-                System.out.println("Band Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(bandMatrixSolved, bandMatrixX));
-                System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(sparseMatrixSolved, sparseMatrixX));
+                System.out.println("Dense Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(denseMatrixSolved, denseMatrixX) + "\nTime: " + timeElapsed1);
+                System.out.println("Band Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(bandMatrixSolved, bandMatrixX) + "\nTime: " + timeElapsed2);
+                System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(sparseMatrixSolved, sparseMatrixX) + "\nTime: " + timeElapsed3);
 
                 // WITH PIVOTING
-                double[] denseMatrixPSolved = denseMatrixSolver.solveWithPivotA2(denseMatrixB);
-                double[] bandMatrixPSolved = bandMatrixSolver.solveWithPivotA2(bandMatrixB);
-                double[] sparseMatrixPSolved = sparseMatrixSolver.solveWithPivotA2(sparseMatrixB);
+                long startp1 = System.currentTimeMillis();
+                    double[] denseMatrixPSolved = denseMatrixSolver.solveWithPivotA2(denseMatrixB);
+                long finishp1 = System.currentTimeMillis();
+                long timeElapsedp1 = finishp1 - startp1;
+
+                long startp2 = System.currentTimeMillis();
+                    double[] bandMatrixPSolved = bandMatrixSolver.solveWithPivotA2(bandMatrixB);
+                long finishp2 = System.currentTimeMillis();
+                long timeElapsedp2 = finishp2 - startp2;
+
+                long startp3 = System.currentTimeMillis();
+                    double[] sparseMatrixPSolved = sparseMatrixSolver.solveWithPivotA2(sparseMatrixB);
+                long finishp3 = System.currentTimeMillis();
+                long timeElapsedp3 = finishp3 - startp3;
+
 
                 System.out.println("\n===== PIVOTING TESTS ===== \n");
-                System.out.println("Dense Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(denseMatrixPSolved, denseMatrixX));
-                System.out.println("Band Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(bandMatrixPSolved, bandMatrixX));
-                System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(sparseMatrixPSolved, sparseMatrixX));
+                System.out.println("Dense Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(denseMatrixPSolved, denseMatrixX) + "\nTime: " + timeElapsedp1);
+                System.out.println("Band Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(bandMatrixPSolved, bandMatrixX) + "\nTime: " + timeElapsedp2);
+                System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(sparseMatrixPSolved, sparseMatrixX) + "\nTime: " + timeElapsedp3);
             }
 
-                System.out.println("\n\n===== DS3 =====");
+            System.out.println("\n\n===== DS3 =====");
             {
                 MySparseMatrix_DS3 denseMatrixSolver = new MySparseMatrix_DS3(denseMatrixA);
                 MySparseMatrix_DS3 bandMatrixSolver = new MySparseMatrix_DS3(bandMatrixA);
                 MySparseMatrix_DS3 sparseMatrixSolver = new MySparseMatrix_DS3(sparseMatrixA);
 
                 // WITHOUT PIVOTING
-                double[] denseMatrixSolved = denseMatrixSolver.solveWithoutPivotA1(denseMatrixB);
-                double[] bandMatrixSolved = bandMatrixSolver.solveWithoutPivotA1(bandMatrixB);
-                double[] sparseMatrixSolved = sparseMatrixSolver.solveWithoutPivotA1(sparseMatrixB);
+                long start1=System.currentTimeMillis();
+                    double[] denseMatrixSolved = denseMatrixSolver.solveWithoutPivotA1(denseMatrixB);
+                long finish1=System.currentTimeMillis();
+                long timeElapsed1 = finish1 - start1;
+
+                long start2 = System.currentTimeMillis();
+                    double[] bandMatrixSolved = bandMatrixSolver.solveWithoutPivotA1(bandMatrixB);
+                long finish2 = System.currentTimeMillis();
+                long timeElapsed2 = finish2 - start2;
+
+                long start3 = System.currentTimeMillis();
+                    double[] sparseMatrixSolved = sparseMatrixSolver.solveWithoutPivotA1(sparseMatrixB);
+                long finish3 = System.currentTimeMillis();
+                long timeElapsed3 = finish3 - start3;
+
 
                 System.out.println("\n===== WITHOUT PIVOTING TESTS ===== \n");
-                System.out.println("Dense Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(denseMatrixSolved, denseMatrixX));
-                System.out.println("Band Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(bandMatrixSolved, bandMatrixX));
-                System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(sparseMatrixSolved, sparseMatrixX));
+                System.out.println("Dense Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(denseMatrixSolved, denseMatrixX) + "\nTime: " + timeElapsed1);
+                System.out.println("Band Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(bandMatrixSolved, bandMatrixX) + "\nTime: " + timeElapsed2);
+                System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(sparseMatrixSolved, sparseMatrixX) + "\nTime: " + timeElapsed3);
 
                 // WITH PIVOTING
-                double[] denseMatrixPSolved = denseMatrixSolver.solveWithPivotA2(denseMatrixB);
-                double[] bandMatrixPSolved = bandMatrixSolver.solveWithPivotA2(bandMatrixB);
-                double[] sparseMatrixPSolved = sparseMatrixSolver.solveWithPivotA2(sparseMatrixB);
+                long startp1 = System.currentTimeMillis();
+                    double[] denseMatrixPSolved = denseMatrixSolver.solveWithPivotA2(denseMatrixB);
+                long finishp1 = System.currentTimeMillis();
+                long timeElapsedp1 = finishp1 - startp1;
+
+                long startp2 = System.currentTimeMillis();
+                    double[] bandMatrixPSolved = bandMatrixSolver.solveWithPivotA2(bandMatrixB);
+                long finishp2 = System.currentTimeMillis();
+                long timeElapsedp2 = finishp2 - startp2;
+
+                long startp3 = System.currentTimeMillis();
+                    double[] sparseMatrixPSolved = sparseMatrixSolver.solveWithPivotA2(sparseMatrixB);
+                long finishp3 = System.currentTimeMillis();
+                long timeElapsedp3 = finishp3 - startp3;
 
                 System.out.println("\n===== PIVOTING TESTS ===== \n");
-                System.out.println("Dense Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(denseMatrixPSolved, denseMatrixX));
-                System.out.println("Band Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(bandMatrixPSolved, bandMatrixX));
-                System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(sparseMatrixPSolved, sparseMatrixX));
+                System.out.println("Dense Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(denseMatrixPSolved, denseMatrixX) + "\nTime: " + timeElapsedp1);
+                System.out.println("Band Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(bandMatrixPSolved, bandMatrixX) + "\nTime: " + timeElapsedp2);
+                System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(sparseMatrixPSolved, sparseMatrixX) + "\nTime: " + timeElapsedp3);
+            }
 
+            System.out.println("\n\n===== Apache math3 =====");
+            {
+
+                RealMatrix dMatrixA = MatrixUtils.createRealMatrix(denseMatrixA);
+                RealVector dMatrixB = MatrixUtils.createRealVector(denseMatrixB);
+
+                RealMatrix bMatrixA = MatrixUtils.createRealMatrix(bandMatrixA);
+                RealVector bMatrixB = MatrixUtils.createRealVector(bandMatrixB);
+
+                RealMatrix sMatrixA = MatrixUtils.createRealMatrix(sparseMatrixA);
+                RealVector sMatrixB = MatrixUtils.createRealVector(sparseMatrixB);
+
+                LUDecomposition denseMatrixSolver = new LUDecomposition(dMatrixA);
+                LUDecomposition bandMatrixSolver = new LUDecomposition(bMatrixA);
+                LUDecomposition sparseMatrixSolver = new LUDecomposition(sMatrixA);
+
+                DecompositionSolver denseMatrixSolver2 = denseMatrixSolver.getSolver();
+                DecompositionSolver bandMatrixSolver2 = bandMatrixSolver.getSolver();
+                DecompositionSolver sparseMatrixSolver2 = sparseMatrixSolver.getSolver();
+
+                long start1=System.currentTimeMillis();
+                    RealVector vectorDense = denseMatrixSolver2.solve(dMatrixB);
+                long finish1=System.currentTimeMillis();
+                long timeElapsed1 = finish1 - start1;
+
+                long start2=System.currentTimeMillis();
+                    RealVector vectorBand = bandMatrixSolver2.solve(bMatrixB);
+                long finish2=System.currentTimeMillis();
+                long timeElapsed2 = finish2 - start2;
+
+                long start3=System.currentTimeMillis();
+                    RealVector vectorSparse = sparseMatrixSolver2.solve(sMatrixB);
+                long finish3=System.currentTimeMillis();
+                long timeElapsed3 = finish3 - start3;
+
+
+                System.out.println("Dense Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(vectorDense.toArray(), denseMatrixX) + "\nTime: " + timeElapsed1);
+                System.out.println("Band Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(vectorBand.toArray(), bandMatrixX) + "\nTime: " + timeElapsed2);
+                System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(vectorSparse.toArray(), sparseMatrixX) + "\nTime: " + timeElapsed3);
 
 
             }
-
 
 
         }
