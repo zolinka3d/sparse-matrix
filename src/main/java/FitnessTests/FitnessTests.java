@@ -7,7 +7,7 @@ import org.apache.commons.math3.linear.*;
 public class FitnessTests {
     
         public static void main(String[] args) {
-            int size = 10;
+            int size = 20;
             int band = 3;
             int density = 40;
 
@@ -20,29 +20,29 @@ public class FitnessTests {
             double[] sparseMatrixX = MatrixGenerator.generateMatrixX(size);
 
             // PRINT THOSE MATRICES
-            {
-                System.out.println("===== DENSE MATRIX =====");
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    System.out.print(denseMatrixA[i][j] + " ");
-                }
-                System.out.println();
-            }
-            System.out.println("===== BAND =====");
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    System.out.print(bandMatrixA[i][j] + " ");
-                }
-                System.out.println();
-            }
-            System.out.println("===== SPARSE =====");
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    System.out.print(sparseMatrixA[i][j] + " ");
-                }
-                System.out.println();
-            }
-        }
+//            {
+//                System.out.println("===== DENSE MATRIX =====");
+//            for (int i = 0; i < size; i++) {
+//                for (int j = 0; j < size; j++) {
+//                    System.out.print(denseMatrixA[i][j] + " ");
+//                }
+//                System.out.println();
+//            }
+//            System.out.println("===== BAND =====");
+//            for (int i = 0; i < size; i++) {
+//                for (int j = 0; j < size; j++) {
+//                    System.out.print(bandMatrixA[i][j] + " ");
+//                }
+//                System.out.println();
+//            }
+//            System.out.println("===== SPARSE =====");
+//            for (int i = 0; i < size; i++) {
+//                for (int j = 0; j < size; j++) {
+//                    System.out.print(sparseMatrixA[i][j] + " ");
+//                }
+//                System.out.println();
+//            }
+//        }
 
             double[] denseMatrixB = MatrixGenerator.multiplyMatrix(denseMatrixA, denseMatrixX);
             double[] bandMatrixB = MatrixGenerator.multiplyMatrix(bandMatrixA, bandMatrixX);
@@ -54,20 +54,21 @@ public class FitnessTests {
                 MySparseMatrix_DS2 bandMatrixSolver = new MySparseMatrix_DS2(bandMatrixA);
                 MySparseMatrix_DS2 sparseMatrixSolver = new MySparseMatrix_DS2(sparseMatrixA);
 
+                // CZAS MOZNA MIERZYC DLA WIEKSZYCH MACIERZY JAKO SYSTEM.CURRENTTIMEMILLIS()
                 // WITHOUT PIVOTING
-                long start1=System.currentTimeMillis();
+                double start1=System.nanoTime();
                     double[] denseMatrixSolved = denseMatrixSolver.solveWithoutPivotA1(denseMatrixB);
-                long finish1=System.currentTimeMillis();
-                long timeElapsed1 = finish1 - start1;
+                double finish1=System.nanoTime();
+                double timeElapsed1 = finish1 - start1;
 
-                long start2 = System.currentTimeMillis();
+                long start2 = System.nanoTime();
                     double[] bandMatrixSolved = bandMatrixSolver.solveWithoutPivotA1(bandMatrixB);
-                long finish2 = System.currentTimeMillis();
+                long finish2 = System.nanoTime();
                 long timeElapsed2 = finish2 - start2;
 
-                long start3 = System.currentTimeMillis();
+                long start3 = System.nanoTime();
                     double[] sparseMatrixSolved = sparseMatrixSolver.solveWithoutPivotA1(sparseMatrixB);
-                long finish3 = System.currentTimeMillis();
+                long finish3 = System.nanoTime();
                 long timeElapsed3 = finish3 - start3;
 
                 System.out.println("\n===== WITHOUT PIVOTING TESTS ===== \n");
@@ -76,19 +77,19 @@ public class FitnessTests {
                 System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(sparseMatrixSolved, sparseMatrixX) + "\nTime: " + timeElapsed3);
 
                 // WITH PIVOTING
-                long startp1 = System.currentTimeMillis();
+                long startp1 = System.nanoTime();
                     double[] denseMatrixPSolved = denseMatrixSolver.solveWithPivotA2(denseMatrixB);
-                long finishp1 = System.currentTimeMillis();
+                long finishp1 = System.nanoTime();
                 long timeElapsedp1 = finishp1 - startp1;
 
-                long startp2 = System.currentTimeMillis();
+                long startp2 = System.nanoTime();
                     double[] bandMatrixPSolved = bandMatrixSolver.solveWithPivotA2(bandMatrixB);
-                long finishp2 = System.currentTimeMillis();
+                long finishp2 = System.nanoTime();
                 long timeElapsedp2 = finishp2 - startp2;
 
-                long startp3 = System.currentTimeMillis();
+                long startp3 = System.nanoTime();
                     double[] sparseMatrixPSolved = sparseMatrixSolver.solveWithPivotA2(sparseMatrixB);
-                long finishp3 = System.currentTimeMillis();
+                long finishp3 = System.nanoTime();
                 long timeElapsedp3 = finishp3 - startp3;
 
 
@@ -105,19 +106,19 @@ public class FitnessTests {
                 MySparseMatrix_DS3 sparseMatrixSolver = new MySparseMatrix_DS3(sparseMatrixA);
 
                 // WITHOUT PIVOTING
-                long start1=System.currentTimeMillis();
+                long start1=System.nanoTime();
                     double[] denseMatrixSolved = denseMatrixSolver.solveWithoutPivotA1(denseMatrixB);
-                long finish1=System.currentTimeMillis();
+                long finish1=System.nanoTime();
                 long timeElapsed1 = finish1 - start1;
 
-                long start2 = System.currentTimeMillis();
+                long start2 = System.nanoTime();
                     double[] bandMatrixSolved = bandMatrixSolver.solveWithoutPivotA1(bandMatrixB);
-                long finish2 = System.currentTimeMillis();
+                long finish2 = System.nanoTime();
                 long timeElapsed2 = finish2 - start2;
 
-                long start3 = System.currentTimeMillis();
+                long start3 = System.nanoTime();
                     double[] sparseMatrixSolved = sparseMatrixSolver.solveWithoutPivotA1(sparseMatrixB);
-                long finish3 = System.currentTimeMillis();
+                long finish3 = System.nanoTime();
                 long timeElapsed3 = finish3 - start3;
 
 
@@ -127,19 +128,19 @@ public class FitnessTests {
                 System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(sparseMatrixSolved, sparseMatrixX) + "\nTime: " + timeElapsed3);
 
                 // WITH PIVOTING
-                long startp1 = System.currentTimeMillis();
+                long startp1 = System.nanoTime();
                     double[] denseMatrixPSolved = denseMatrixSolver.solveWithPivotA2(denseMatrixB);
-                long finishp1 = System.currentTimeMillis();
+                long finishp1 = System.nanoTime();
                 long timeElapsedp1 = finishp1 - startp1;
 
-                long startp2 = System.currentTimeMillis();
+                long startp2 = System.nanoTime();
                     double[] bandMatrixPSolved = bandMatrixSolver.solveWithPivotA2(bandMatrixB);
-                long finishp2 = System.currentTimeMillis();
+                long finishp2 = System.nanoTime();
                 long timeElapsedp2 = finishp2 - startp2;
 
-                long startp3 = System.currentTimeMillis();
+                long startp3 = System.nanoTime();
                     double[] sparseMatrixPSolved = sparseMatrixSolver.solveWithPivotA2(sparseMatrixB);
-                long finishp3 = System.currentTimeMillis();
+                long finishp3 = System.nanoTime();
                 long timeElapsedp3 = finishp3 - startp3;
 
                 System.out.println("\n===== PIVOTING TESTS ===== \n");
@@ -168,19 +169,19 @@ public class FitnessTests {
                 DecompositionSolver bandMatrixSolver2 = bandMatrixSolver.getSolver();
                 DecompositionSolver sparseMatrixSolver2 = sparseMatrixSolver.getSolver();
 
-                long start1=System.currentTimeMillis();
+                long start1=System.nanoTime();
                     RealVector vectorDense = denseMatrixSolver2.solve(dMatrixB);
-                long finish1=System.currentTimeMillis();
+                long finish1=System.nanoTime();
                 long timeElapsed1 = finish1 - start1;
 
-                long start2=System.currentTimeMillis();
+                long start2=System.nanoTime();
                     RealVector vectorBand = bandMatrixSolver2.solve(bMatrixB);
-                long finish2=System.currentTimeMillis();
+                long finish2=System.nanoTime();
                 long timeElapsed2 = finish2 - start2;
 
-                long start3=System.currentTimeMillis();
+                long start3=System.nanoTime();
                     RealVector vectorSparse = sparseMatrixSolver2.solve(sMatrixB);
-                long finish3=System.currentTimeMillis();
+                long finish3=System.nanoTime();
                 long timeElapsed3 = finish3 - start3;
 
 
