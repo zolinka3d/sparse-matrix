@@ -13,25 +13,41 @@ public class FitnessTests {
             double[][] bandMatrixA = MatrixGenerator.DS2generateBandMatrixA(size, band);
             double[][] sparseMatrixA = MatrixGenerator.DS2generateSparseMatrixA(size, density);
     
-            double[] denseMatrixB = MatrixGenerator.generateMatrixB(size);
-            double[] bandMatrixB = MatrixGenerator.generateMatrixB(size);
-            double[] sparseMatrixB = MatrixGenerator.generateMatrixB(size);
+            double[] denseMatrixX = MatrixGenerator.generateMatrixX(size);
+            double[] bandMatrixX = MatrixGenerator.generateMatrixX(size);
+            double[] sparseMatrixX = MatrixGenerator.generateMatrixX(size);
+
 
             MySparseMatrix_DS2 denseMatrixSolver = new MySparseMatrix_DS2(denseMatrixA);
             MySparseMatrix_DS2 bandMatrixSolver = new MySparseMatrix_DS2(bandMatrixA);
             MySparseMatrix_DS2 sparseMatrixSolver = new MySparseMatrix_DS2(sparseMatrixA);
-    
+
+            double[] denseMatrixB = MatrixGenerator.multiplyMatrix(denseMatrixA, denseMatrixX);
+            double[] bandMatrixB = MatrixGenerator.multiplyMatrix(bandMatrixA, bandMatrixX);
+            double[] sparseMatrixB = MatrixGenerator.multiplyMatrix(sparseMatrixA, sparseMatrixX);
+
             // WITHOUT PIVOTING
-            double[] denseMatrixX = denseMatrixSolver.solveWithoutPivotA1(denseMatrixB);
-            double[] bandMatrixX = bandMatrixSolver.solveWithoutPivotA1(bandMatrixB);
-            double[] sparseMatrixX = sparseMatrixSolver.solveWithoutPivotA1(sparseMatrixB);
+            double[] denseMatrixSolved = denseMatrixSolver.solveWithoutPivotA1(denseMatrixB);
+            double[] bandMatrixSolved = bandMatrixSolver.solveWithoutPivotA1(bandMatrixB);
+            double[] sparseMatrixSolved = sparseMatrixSolver.solveWithoutPivotA1(sparseMatrixB);
 
-            double[] denseMatrixAX = MatrixGenerator.multiplyMatrix(denseMatrixA, denseMatrixX);
-            double[] bandMatrixAX = MatrixGenerator.multiplyMatrix(bandMatrixA, bandMatrixX);
-            double[] sparseMatrixAX = MatrixGenerator.multiplyMatrix(sparseMatrixA, sparseMatrixX);
+            System.out.println("WITHOUT PIVOTING TESTS");
+            System.out.println("Dense Matrix Accuracy: " + MatrixGenerator.getAccuracy(denseMatrixSolved, denseMatrixX));
+            System.out.println("Band Matrix Accuracy: " + MatrixGenerator.getAccuracy(bandMatrixSolved, bandMatrixX));
+            System.out.println("Sparse Matrix Accuracy: " + MatrixGenerator.getAccuracy(sparseMatrixSolved, sparseMatrixX));
 
-            System.out.println("Dense Matrix Accuracy: " + MatrixGenerator.getAccuracy(denseMatrixAX, denseMatrixB));
-            System.out.println("Band Matrix Accuracy: " + MatrixGenerator.getAccuracy(bandMatrixAX, bandMatrixB));
-            System.out.println("Sparse Matrix Accuracy: " + MatrixGenerator.getAccuracy(sparseMatrixAX, sparseMatrixB));
+            // WITH PIVOTING
+            double[] denseMatrixPSolved = denseMatrixSolver.solveWithPivotA2(denseMatrixB);
+            double[] bandMatrixPSolved = bandMatrixSolver.solveWithPivotA2(bandMatrixB);
+            double[] sparseMatrixPSolved = sparseMatrixSolver.solveWithPivotA2(sparseMatrixB);
+
+            System.out.println("PIVOTING TESTS");
+            System.out.println("Dense Matrix Accuracy: " + MatrixGenerator.getAccuracy(denseMatrixPSolved, denseMatrixX));
+            System.out.println("Band Matrix Accuracy: " + MatrixGenerator.getAccuracy(bandMatrixPSolved, bandMatrixX));
+            System.out.println("Sparse Matrix Accuracy: " + MatrixGenerator.getAccuracy(sparseMatrixPSolved, sparseMatrixX));
+
+
+
+
         }
 }

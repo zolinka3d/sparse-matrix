@@ -101,7 +101,7 @@ public class MySparseMatrix_DS3 {
             if (maxRow == -1 || maxElement == 0) {
                 throw new RuntimeException("Macierz jest osobliwa");
             }
-            System.out.println("maxElement: " + maxElement + " for column " + k + " maxRow: " + maxRow);
+//            System.out.println("maxElement: " + maxElement + " for column " + k + " maxRow: " + maxRow);
 
             // swap row in A matrix
             if (maxRow != k) {

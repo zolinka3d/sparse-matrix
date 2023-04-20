@@ -82,12 +82,12 @@ public class MatrixGenerator {
     }
 
 
-    public static double[] generateMatrixB (int size) {
-        double[] matrixB = new double[size];
+    public static double[] generateMatrixX (int size) {
+        double[] matrixX = new double[size];
         for (int i = 0; i < size; i++) {
-            matrixB[i] = getRandomDouble();
+            matrixX[i] = getRandomDouble();
         }
-        return matrixB;
+        return matrixX;
     }
 
     private static double getRandomDouble() {
@@ -102,21 +102,35 @@ public class MatrixGenerator {
         return randomDouble;
     }
 
-    public static double[] multiplyMatrix(double[][] denseMatrixA, double[] denseMatrixX) {
-        double[] denseMatrixAX = new double[denseMatrixA.length];
-        for (int i = 0; i < denseMatrixA.length; i++) {
-            for (int j = 0; j < denseMatrixA.length; j++) {
-                denseMatrixAX[i] += denseMatrixA[i][j] * denseMatrixX[j];
+    public static double[] multiplyMatrix(double[][] MatrixA, double[] MatrixX) {
+        double[] denseMatrixAX = new double[MatrixA.length];
+        for (int i = 0; i < MatrixA.length; i++) {
+            for (int j = 0; j < MatrixA.length; j++) {
+                denseMatrixAX[i] += MatrixA[i][j] * MatrixX[j];
             }
         }
         return denseMatrixAX;
     }
 
-    public static String getAccuracy(double[] denseMatrixAX, double[] denseMatrixB) {
-        double accuracy = 0;
-        for (int i = 0; i < denseMatrixAX.length; i++) {
-            accuracy += Math.abs(denseMatrixAX[i] - denseMatrixB[i]);
+    public static String getAccuracy(double[] denseMatrixSolved, double[] denseMatrixX) {
+        double absoluteError = 0;
+        double relativeError = 0;
+        for (int i = 0; i < denseMatrixSolved.length; i++) {
+            double difference = Math.abs(denseMatrixSolved[i] - denseMatrixX[i]);
+            absoluteError += difference;
+            if(denseMatrixSolved[i] != 0) {
+                relativeError += difference / Math.abs(denseMatrixSolved[i]);
+            }
         }
-        return String.format("%.2f", accuracy);
+        absoluteError = absoluteError / denseMatrixSolved.length;
+        relativeError = relativeError / denseMatrixSolved.length;
+        return "Absolute Error: " + absoluteError +
+                "\nRelative Error: " + relativeError;
     }
+
+
+    // getAccuracy should print value for matrix Solved, MatrixX and then percentage of accuracy
+
+
+
 }
