@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MatrixGenerator {
 
-    public static double[][] DS2generateDenseMatrixA (int size) {
+    public static double[][] DS2generateDenseMatrixA(int size) {
         double[][] matrixA = new double[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -16,7 +16,7 @@ public class MatrixGenerator {
         return matrixA;
     }
 
-    public static HashMap<Integer, Double>[] DS3generateDenseMatrixA (int size) {
+    public static HashMap<Integer, Double>[] DS3generateDenseMatrixA(int size) {
         HashMap<Integer, Double>[] matrixA = new HashMap[size];
         for (int i = 0; i < size; i++) {
             matrixA[i] = new HashMap<>();
@@ -27,7 +27,7 @@ public class MatrixGenerator {
         return matrixA;
     }
 
-    public static double[][] DS2generateBandMatrixA (int size, int band) {
+    public static double[][] DS2generateBandMatrixA(int size, int band) {
         double[][] matrixA = new double[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -39,7 +39,7 @@ public class MatrixGenerator {
         return matrixA;
     }
 
-    public static HashMap<Integer, Double>[] DS3generateBandMatrixA (int size, int band) {
+    public static HashMap<Integer, Double>[] DS3generateBandMatrixA(int size, int band) {
         HashMap<Integer, Double>[] matrixA = new HashMap[size];
         for (int i = 0; i < size; i++) {
             matrixA[i] = new HashMap<>();
@@ -52,7 +52,7 @@ public class MatrixGenerator {
         return matrixA;
     }
 
-    public static double[][] DS2generateSparseMatrixA (int size, int density) {
+    public static double[][] DS2generateSparseMatrixA(int size, int density) {
         double[][] matrixA = new double[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -64,7 +64,7 @@ public class MatrixGenerator {
         return matrixA;
     }
 
-    public static HashMap<Integer, Double>[] DS3generateSparseMatrixA (int size, int density) {
+    public static HashMap<Integer, Double>[] DS3generateSparseMatrixA(int size, int density) {
         HashMap<Integer, Double>[] matrixA = new HashMap[size];
         for (int i = 0; i < size; i++) {
             matrixA[i] = new HashMap<>();
@@ -83,7 +83,7 @@ public class MatrixGenerator {
     }
 
 
-    public static double[] generateMatrixX (int size) {
+    public static double[] generateMatrixX(int size) {
         double[] matrixX = new double[size];
         for (int i = 0; i < size; i++) {
             matrixX[i] = getRandomDouble();
@@ -92,8 +92,9 @@ public class MatrixGenerator {
     }
 
     private static double getRandomDouble() {
-        var myRandom = ThreadLocalRandom.current().nextDouble(-2^16, 2^16-1);
-        return myRandom / (2^16);
+        var myRandom = ThreadLocalRandom.current();
+//        myRandom.setSeed(System.currentTimeMillis());
+        return myRandom.nextDouble(-2 ^ 16, 2 ^ 16 - 1) / (2 ^ 16);
     }
 
     public static double[] multiplyMatrix(double[][] MatrixA, double[] MatrixX) {
@@ -112,19 +113,17 @@ public class MatrixGenerator {
         for (int i = 0; i < denseMatrixSolved.length; i++) {
             double difference = Math.abs(denseMatrixSolved[i] - denseMatrixX[i]);
             absoluteError += difference;
-            if(denseMatrixSolved[i] != 0) {
+            if (denseMatrixSolved[i] != 0) {
                 relativeError += difference / Math.abs(denseMatrixSolved[i]);
             }
         }
         absoluteError = absoluteError / denseMatrixSolved.length;
         relativeError = relativeError / denseMatrixSolved.length;
-        return "\tAbsolute Error: " + absoluteError +
-                "\n\tRelative Error: " + relativeError;
+        return absoluteError + ", " + relativeError;
     }
 
 
     // getAccuracy should print value for matrix Solved, MatrixX and then percentage of accuracy
-
 
 
 }
