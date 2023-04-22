@@ -55,7 +55,6 @@ public class FitnessTests {
 //        System.out.println("\n\n===== DS2 =====");
 
 
-
         File ds2_dense_without_pivot = new File("./test_data/DS2_dense_without_pivot.txt");
         try {
             ds2_dense_without_pivot.createNewFile();
@@ -64,7 +63,6 @@ public class FitnessTests {
         }
         FileWriter ds2_dense_without_pivot_writer = new FileWriter("./test_data/DS2_dense_without_pivot.txt");
         ds2_dense_without_pivot_writer.write("Absolute Error, Relative Error, Time\n");
-
 
 
         File ds2_band_without_pivot = new File("./test_data/DS2_band_without_pivot.txt");
@@ -77,7 +75,6 @@ public class FitnessTests {
         ds2_band_without_pivot_writer.write("Absolute Error, Relative Error, Time\n");
 
 
-
         File ds2_sparse_without_pivot = new File("./test_data/DS2_sparse_without_pivot.txt");
         try {
             ds2_sparse_without_pivot.createNewFile();
@@ -86,7 +83,6 @@ public class FitnessTests {
         }
         FileWriter ds2_sparse_without_pivot_writer = new FileWriter("./test_data/DS2_sparse_without_pivot.txt");
         ds2_sparse_without_pivot_writer.write("Absolute Error, Relative Error, Time\n");
-
 
 
         File ds2_dense_with_pivot = new File("./test_data/DS2_dense_with_pivot.txt");
@@ -99,7 +95,6 @@ public class FitnessTests {
         ds2_dense_with_pivot_writer.write("Absolute Error, Relative Error, Time\n");
 
 
-
         File ds2_band_with_pivot = new File("./test_data/DS2_band_with_pivot.txt");
         try {
             ds2_band_with_pivot.createNewFile();
@@ -108,7 +103,6 @@ public class FitnessTests {
         }
         FileWriter ds2_band_with_pivot_writer = new FileWriter("./test_data/DS2_band_with_pivot.txt");
         ds2_band_with_pivot_writer.write("Absolute Error, Relative Error, Time\n");
-
 
 
         File ds2_sparse_with_pivot = new File("./test_data/DS2_sparse_with_pivot.txt");
@@ -120,7 +114,7 @@ public class FitnessTests {
         FileWriter ds2_sparse_with_pivot_writer = new FileWriter("./test_data/DS2_sparse_with_pivot.txt");
         ds2_sparse_with_pivot_writer.write("Absolute Error, Relative Error, Time\n");
 
-        for (int i = 0; i < 100; i ++){
+        for (int i = 0; i < 100; i++) {
 
             denseMatrixA = MatrixGenerator.DS2generateDenseMatrixA(size);
             bandMatrixA = MatrixGenerator.DS2generateBandMatrixA(size, band);
@@ -214,7 +208,6 @@ public class FitnessTests {
         ds3_dense_without_pivot_writer.write("Absolute Error, Relative Error, Time\n");
 
 
-
         File ds3_band_without_pivot = new File("./test_data/DS3_band_without_pivot.txt");
         try {
             ds3_band_without_pivot.createNewFile();
@@ -223,7 +216,6 @@ public class FitnessTests {
         }
         FileWriter ds3_band_without_pivot_writer = new FileWriter("./test_data/DS3_band_without_pivot.txt");
         ds3_band_without_pivot_writer.write("Absolute Error, Relative Error, Time\n");
-
 
 
         File ds3_sparse_without_pivot = new File("./test_data/DS3_sparse_without_pivot.txt");
@@ -236,7 +228,6 @@ public class FitnessTests {
         ds3_sparse_without_pivot_writer.write("Absolute Error, Relative Error, Time\n");
 
 
-
         File ds3_dense_with_pivot = new File("./test_data/DS3_dense_with_pivot.txt");
         try {
             ds3_dense_with_pivot.createNewFile();
@@ -247,7 +238,6 @@ public class FitnessTests {
         ds3_dense_with_pivot_writer.write("Absolute Error, Relative Error, Time\n");
 
 
-
         File ds3_band_with_pivot = new File("./test_data/DS3_band_with_pivot.txt");
         try {
             ds3_band_with_pivot.createNewFile();
@@ -256,7 +246,6 @@ public class FitnessTests {
         }
         FileWriter ds3_band_with_pivot_writer = new FileWriter("./test_data/DS3_band_with_pivot.txt");
         ds3_band_with_pivot_writer.write("Absolute Error, Relative Error, Time\n");
-
 
 
         File ds3_sparse_with_pivot = new File("./test_data/DS3_sparse_with_pivot.txt");
@@ -270,7 +259,7 @@ public class FitnessTests {
 
 
         System.out.println("\n\n===== DS3 =====");
-        {
+        for (int i = 0; i < 100; i++) {
             denseMatrixA = MatrixGenerator.DS2generateDenseMatrixA(size);
             bandMatrixA = MatrixGenerator.DS2generateBandMatrixA(size, band);
             sparseMatrixA = MatrixGenerator.DS2generateSparseMatrixA(size, density);
@@ -345,7 +334,6 @@ public class FitnessTests {
         ds3_sparse_with_pivot_writer.close();
 
 
-
         File apache_dense = new File("./test_data/apache_dense.txt");
         try {
             apache_dense.createNewFile();
@@ -356,7 +344,6 @@ public class FitnessTests {
         apache_dense_writer.write("Absolute Error, Relative Error, Time\n");
 
 
-
         File apache_band = new File("./test_data/apache_band.txt");
         try {
             apache_band.createNewFile();
@@ -365,7 +352,6 @@ public class FitnessTests {
         }
         FileWriter apache_band_writer = new FileWriter("./test_data/apache_band.txt");
         apache_band_writer.write("Absolute Error, Relative Error, Time\n");
-
 
 
         File apache_sparse = new File("./test_data/apache_sparse.txt");
@@ -379,7 +365,7 @@ public class FitnessTests {
 
 
         System.out.println("\n\n===== Apache math3 =====");
-        {
+        for (int i = 0; i < 100; i++) {
 
             denseMatrixA = MatrixGenerator.DS2generateDenseMatrixA(size);
             bandMatrixA = MatrixGenerator.DS2generateBandMatrixA(size, band);
@@ -415,21 +401,24 @@ public class FitnessTests {
             RealVector vectorDense = denseMatrixSolver2.solve(dMatrixB);
             long finish1 = System.nanoTime();
             long timeElapsed1 = finish1 - start1;
+            apache_dense_writer.write(MatrixGenerator.getAccuracy(vectorDense.toArray(), denseMatrixX) + ", " + timeElapsed1 + "\n");
 
             long start2 = System.nanoTime();
             RealVector vectorBand = bandMatrixSolver2.solve(bMatrixB);
             long finish2 = System.nanoTime();
             long timeElapsed2 = finish2 - start2;
+            apache_band_writer.write(MatrixGenerator.getAccuracy(vectorBand.toArray(), bandMatrixX) + ", " + timeElapsed2 + "\n");
 
             long start3 = System.nanoTime();
             RealVector vectorSparse = sparseMatrixSolver2.solve(sMatrixB);
             long finish3 = System.nanoTime();
             long timeElapsed3 = finish3 - start3;
+            apache_sparse_writer.write(MatrixGenerator.getAccuracy(vectorSparse.toArray(), sparseMatrixX) + ", " + timeElapsed3 + "\n");
 
-
-            System.out.println("Dense Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(vectorDense.toArray(), denseMatrixX) + "\nTime: " + timeElapsed1);
-            System.out.println("Band Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(vectorBand.toArray(), bandMatrixX) + "\nTime: " + timeElapsed2);
-            System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(vectorSparse.toArray(), sparseMatrixX) + "\nTime: " + timeElapsed3);
+//
+//            System.out.println("Dense Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(vectorDense.toArray(), denseMatrixX) + "\nTime: " + timeElapsed1);
+//            System.out.println("Band Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(vectorBand.toArray(), bandMatrixX) + "\nTime: " + timeElapsed2);
+//            System.out.println("Sparse Matrix Accuracy: \n" + MatrixGenerator.getAccuracy(vectorSparse.toArray(), sparseMatrixX) + "\nTime: " + timeElapsed3);
 
 
         }
