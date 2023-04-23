@@ -11,8 +11,8 @@ import java.io.IOException;
 public class FitnessTests {
 
     public static void main(String[] args) throws IOException {
-        int size = 100;
-        int band = 10;
+        int size = 30;
+        int band = 3;
         int density = 40;
 
         double[][] denseMatrixA = MatrixGenerator.DS2generateDenseMatrixA(size);
@@ -114,7 +114,18 @@ public class FitnessTests {
         FileWriter ds2_sparse_with_pivot_writer = new FileWriter("./test_data/DS2_sparse_with_pivot.txt");
         ds2_sparse_with_pivot_writer.write("Absolute Error, Relative Error, Time\n");
 
-        for (int i = 0; i < 100; i++) {
+//        size = 30;
+//        band = 3;
+//        density = 40;
+
+        for (int i = 0; i < 1000; i++) {
+
+//            System.out.println("ds2 iteracja");
+//            System.out.println(i);
+//
+//            size = size + i;
+//            band = band + i;
+//            density = density + i;
 
             denseMatrixA = MatrixGenerator.DS2generateDenseMatrixA(size);
             bandMatrixA = MatrixGenerator.DS2generateBandMatrixA(size, band);
@@ -257,9 +268,19 @@ public class FitnessTests {
         FileWriter ds3_sparse_with_pivot_writer = new FileWriter("./test_data/DS3_sparse_with_pivot.txt");
         ds3_sparse_with_pivot_writer.write("Absolute Error, Relative Error, Time\n");
 
+//        size = 30;
+//        band = 3;
+//        density = 40;
 
-        System.out.println("\n\n===== DS3 =====");
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
+
+//            System.out.println("ds3 iteracja");
+//            System.out.println(i);
+//
+//            size = size + i;
+//            band = band + i;
+//            density = density + i;
+
             denseMatrixA = MatrixGenerator.DS2generateDenseMatrixA(size);
             bandMatrixA = MatrixGenerator.DS2generateBandMatrixA(size, band);
             sparseMatrixA = MatrixGenerator.DS2generateSparseMatrixA(size, density);
@@ -363,9 +384,19 @@ public class FitnessTests {
         FileWriter apache_sparse_writer = new FileWriter("./test_data/apache_sparse.txt");
         apache_sparse_writer.write("Absolute Error, Relative Error, Time\n");
 
+//        size = 30;
+//        band = 3;
+//        density = 40;
 
-        System.out.println("\n\n===== Apache math3 =====");
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
+
+//            System.out.println("apache iteracja");
+//            System.out.println(i);
+
+//            size = size + i;
+//            band = band + i;
+//            density = density + i;
+
 
             denseMatrixA = MatrixGenerator.DS2generateDenseMatrixA(size);
             bandMatrixA = MatrixGenerator.DS2generateBandMatrixA(size, band);
